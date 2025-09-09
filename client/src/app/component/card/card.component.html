@@ -1,0 +1,20 @@
+<mat-card appearance="outlined" dndDropzone (dndDrop)="onDrop($event)">
+  <mat-card-content
+    class="card-min-height"
+    [ngClass]="{
+    'vertical-align': element.props?.['align'] === 'vertical',
+    'horizontal-align': element.props?.['align'] === 'horizontal',
+  }"
+  >
+    @for(child of element.children; track child.id) {
+    <app-dynamic-component
+      [dndDraggable]="child"
+      [dndEffectAllowed]="'move'"
+      [element]="child"
+      (dragover)="onDragOver($event)"
+      [attr.data-item]="$index"
+    >
+    </app-dynamic-component>
+    }
+  </mat-card-content>
+</mat-card>

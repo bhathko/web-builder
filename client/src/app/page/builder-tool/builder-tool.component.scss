@@ -1,0 +1,25 @@
+.drawer-container {
+  display: flex;
+  height: calc(100vh - 42px);
+  width: 100%;
+}
+
+canvas {
+  display: none;
+}
+
+.no-border-radius {
+  border-radius: 0 !important;
+}
+
+.right-border {
+  border-right: 1px solid #ccc;
+}
+
+.left-border {
+  border-left: 1px solid #ccc !important;
+}
+
+.w-full {
+  width: 100%;
+}

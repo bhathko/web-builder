@@ -1,0 +1,11 @@
+<mat-card appearance="outlined">
+  <mat-card-content
+    class="card-min-height"
+    [ngClass]="{
+    'vertical-align': element.props?.['align'] === 'vertical',
+    'horizontal-align': element.props?.['align'] === 'horizontal',
+  }"
+  >
+    <ng-container #container></ng-container>
+  </mat-card-content>
+</mat-card>

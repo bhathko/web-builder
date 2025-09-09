@@ -1,0 +1,28 @@
+@use "@angular/material" as mat;
+
+$primary: mat.m2-define-palette(mat.$m2-gray-palette);
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  color: mat.m2-get-color-from-palette($primary, 800);
+}
+
+.sub-title {
+  color: mat.m2-get-color-from-palette($primary, 600);
+  font-size: 18px;
+}
+
+.select-layout {
+  margin-top: 0.5rem;
+}
+
+.close-ico {
+  cursor: pointer;
+}

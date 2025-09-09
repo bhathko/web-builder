@@ -1,0 +1,25 @@
+.layout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  border-radius: 5px;
+
+  .left-icons {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .right-icons {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  mat-icon {
+    cursor: pointer;
+  }
+}

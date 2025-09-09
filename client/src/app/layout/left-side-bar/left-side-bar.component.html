@@ -1,0 +1,18 @@
+<div class="side-bar">
+  <span class="title">Component List</span>
+  <div class="component-list">
+    @for (component of components; track $index) {
+    <div
+      class="component-item"
+      [dndDraggable]="component"
+      (dndStart)="onDragStart($event, component)"
+      (dndEnd)="onDragEnd()"
+      [dndEffectAllowed]="'copy'"
+      [attr.data-item]="$index"
+    >
+      <mat-icon fontIcon="extension" matTooltip="Print Root"></mat-icon>
+      <div class="component-name">{{ component.type }}</div>
+    </div>
+    }
+  </div>
+</div>

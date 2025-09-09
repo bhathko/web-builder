@@ -1,0 +1,10 @@
+<div class="container">
+  @for (child of element.children; track child.id) {
+  <div class="col-wrapper">
+    <app-dynamic-component
+      [element]="child"
+      [attr.data-item]="$index"
+    ></app-dynamic-component>
+  </div>
+  }
+</div>

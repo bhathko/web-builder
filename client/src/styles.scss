@@ -1,0 +1,38 @@
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  overflow: hidden;
+}
+.cdk-focused {
+  outline: 2px solid #3f51b5 !important;
+  outline-offset: -2px;
+  z-index: 1;
+  padding: 2px;
+}
+
+.fit-content {
+  display: block;
+  width: fit-content;
+  height: fit-content;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+mat-drawer-content {
+  display: flex; /* or display: grid; */
+}
+
+.main-content {
+  flex-grow: 1; /* Makes the child element grow to fill the available space */
+}

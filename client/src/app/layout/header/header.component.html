@@ -1,0 +1,55 @@
+<div class="layout">
+  <div class="left-icons">
+    <mat-icon
+      fontIcon="menu"
+      (click)="toggleComponentList()"
+      matTooltip="Toggle Menu"
+    ></mat-icon>
+    <span class="app-title">CUB Web Builder</span>
+  </div>
+
+  <div class="right-icons">
+    <mat-icon
+      (click)="print()"
+      fontIcon="code"
+      matTooltip="Print Root"
+    ></mat-icon>
+    <mat-icon
+      (click)="sendDataToServer()"
+      fontIcon="file_upload"
+      matTooltip="Send Data To Server"
+    ></mat-icon>
+
+    <mat-icon
+      (click)="generateProject()"
+      fontIcon="file_copy"
+      matTooltip="Prepare Project"
+    ></mat-icon>
+    <mat-icon
+      (click)="getComponentStatus()"
+      fontIcon="info"
+      matTooltip="Get Status"
+    ></mat-icon>
+    <mat-icon
+      (click)="getDownload()"
+      fontIcon="file_download"
+      matTooltip="Download Project"
+    ></mat-icon>
+    <mat-icon
+      (click)="onPreview()"
+      fontIcon="preview"
+      matTooltip="Preview Project"
+    ></mat-icon>
+  </div>
+
+  <!-- @if (currentUrl() === '/builder') {
+
+  } @else { -->
+
+  <!-- <mat-icon
+    (click)="onBuilder()"
+    fontIcon="handyman"
+    matTooltip="Open Builder"
+  ></mat-icon> -->
+  <!-- } -->
+</div>

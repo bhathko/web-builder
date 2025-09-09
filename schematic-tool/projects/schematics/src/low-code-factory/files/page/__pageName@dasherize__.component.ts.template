@@ -1,0 +1,12 @@
+import { Component } from '@angular/core';
+import { SharedModule } from '../../shared/shared-module';
+
+@Component({
+  selector: 'app-<%= dasherize(pageName) %>',
+  templateUrl: './<%= dasherize(pageName) %>.component.html',
+  styleUrls: ['./<%= dasherize(pageName) %>.component.scss'],
+  imports: [SharedModule]
+})
+export class <%= classify(pageName) %>Component {
+  // Component logic here
+}

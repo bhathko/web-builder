@@ -1,0 +1,23 @@
+<app-header (toggleLeftSideBar)="leftSideBar.toggle()"></app-header>
+
+<mat-drawer-container class="drawer-container" [hasBackdrop]="false">
+  <mat-drawer
+    #leftSideBar
+    [mode]="'side'"
+    class="no-border-radius right-border"
+  >
+    <app-left-side-bar></app-left-side-bar>
+  </mat-drawer>
+  <mat-drawer-content class="w-full">
+    <app-main></app-main>
+  </mat-drawer-content>
+  <mat-drawer
+    #rightSideBar
+    class="no-border-radius left-border"
+    [mode]="'side'"
+    [position]="'end'"
+    [opened]="rightSideOpen()"
+  >
+    <app-right-side-bar></app-right-side-bar>
+  </mat-drawer>
+</mat-drawer-container>
