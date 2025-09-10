@@ -22,11 +22,29 @@ export class SideBarHeaderComponent {
     { label: 'Vertical', value: 'vertical' },
   ];
 
+  gridColumnOptions = [
+    { label: '1 Col', value: '1' },
+    { label: '2 Col', value: '2' },
+    { label: '3 Col', value: '3' },
+    { label: '4 Col', value: '4' },
+    { label: '6 Col', value: '6' },
+    { label: '12 Col', value: '12' },
+  ];
+
   onAlignChange(event: any) {
     if (this.element) {
       this.element.props = {
         ...this.element.props,
         align: event,
+      };
+    }
+  }
+
+  onGridColChange(event: any) {
+    if (this.element) {
+      this.element.props = {
+        ...this.element.props,
+        column: event,
       };
     }
   }

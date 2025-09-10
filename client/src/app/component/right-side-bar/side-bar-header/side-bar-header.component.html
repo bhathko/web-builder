@@ -22,4 +22,16 @@
   </mat-select>
 </mat-form-field>
 
+} @if (element.type === "grid_view") {
+<mat-form-field class="select-layout">
+  <mat-label>Layout Column</mat-label>
+  <mat-select
+    (selectionChange)="onGridColChange($event.value)"
+    [value]="element.props?.['column']"
+  >
+    @for (option of gridColumnOptions; track option.value) {
+    <mat-option [value]="option.value">{{ option.label }}</mat-option>
+    }
+  </mat-select>
+</mat-form-field>
 }

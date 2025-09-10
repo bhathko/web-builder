@@ -7,6 +7,8 @@
       ? 'repeat(' + this.element.props?.['column'] + ', 1fr)'
       : 'repeat(3, 1fr)'
   "
+  [style.gap.px]="
+    this.element.props?.['gap'] ? this.element.props?.['gap'] : 10"
 >
   @for(child of element.children; track child.id) {
   <app-dynamic-component
