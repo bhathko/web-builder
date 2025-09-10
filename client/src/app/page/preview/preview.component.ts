@@ -16,6 +16,7 @@ import { PreviewBaseDirective } from '../../preview-component/preview-base/previ
 import { take } from 'rxjs';
 import { DomService } from '../../core/service/dom.service';
 import { IDynamicElement } from '../../core/model/Config';
+import { PreviewGridViewComponent } from '../../preview-component/preview-grid-view/preview-grid-view.component';
 
 export type LayoutComponent = {
   type: string;
@@ -29,6 +30,7 @@ const PreviewComponentMap = new Map<string, Type<any>>([
   ['input', InputComponent],
   ['select', SelectComponent],
   ['button', ButtonComponent],
+  ['grid_view', PreviewGridViewComponent],
 ]);
 
 @Component({
