@@ -10,6 +10,7 @@ import { PlaceholderService } from '../../core/service/placeholder.service';
 import { UtilsService } from '../../core/service/utils.service';
 import { DndModule } from 'ngx-drag-drop';
 import { MatIconModule } from '@angular/material/icon';
+import { LayoutService } from '../../core/service/layout.service';
 
 @Component({
   selector: 'app-left-side-bar',
@@ -22,6 +23,7 @@ export class LeftSideBarComponent {
 
   domService = inject(DomService);
   utilsService = inject(UtilsService);
+  layoutService = inject(LayoutService);
   placeholderService = inject(PlaceholderService);
 
   components: IDynamicElement[] = [
@@ -39,6 +41,14 @@ export class LeftSideBarComponent {
       type: LayoutComponentEnum.Card,
       children: [],
     },
+    {
+      type: LayoutComponentEnum.GridView,
+      children: [],
+      props: {
+        column: '3',
+        gap: '10',
+      },
+    },
   ];
   generateProject() {
     this.http
@@ -54,5 +64,10 @@ export class LeftSideBarComponent {
 
   onDragEnd() {
     this.placeholderService.hide();
+  }
+  onDragMoved(event: MouseEvent) {
+    if (event.clientX > 300) {
+      this.layoutService.closeLeftPanel();
+    }
   }
 }

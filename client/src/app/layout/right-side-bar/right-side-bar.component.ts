@@ -6,7 +6,7 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { RightPanelService } from '../../core/service/right-panel.service';
+import { LayoutService } from '../../core/service/layout.service';
 import { IDynamicElement } from '../../core/model/Config';
 import { SideBarHeaderComponent } from '../../component/right-side-bar/side-bar-header/side-bar-header.component';
 
@@ -17,7 +17,7 @@ import { SideBarHeaderComponent } from '../../component/right-side-bar/side-bar-
   styleUrl: './right-side-bar.component.scss',
 })
 export class RightSideBarComponent implements OnInit, OnDestroy {
-  rightPanelService = inject(RightPanelService);
+  layoutService = inject(LayoutService);
 
   @ViewChild('headerContainer', { read: ViewContainerRef })
   headerVc!: ViewContainerRef;
@@ -27,7 +27,7 @@ export class RightSideBarComponent implements OnInit, OnDestroy {
   footerVc!: ViewContainerRef;
 
   ngOnInit(): void {
-    this.rightPanelService.getElementData().subscribe((data) => {
+    this.layoutService.getElementData().subscribe((data) => {
       if (data) {
         this.renderHeader(data);
       }

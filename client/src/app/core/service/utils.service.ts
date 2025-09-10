@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import {
   ComponentEnum,
   IComponentType,
@@ -15,6 +15,8 @@ export class UtilsService {
     return this._dragImage;
   }
 
+  isDragging = signal(false);
+
   private _dragImage: HTMLImageElement = new Image();
 
   constructor() {
@@ -25,10 +27,18 @@ export class UtilsService {
     this.index++;
     return this.index.toString();
   }
-  
+
   isLayoutComponent(type: IComponentType): boolean {
     return Object.values(LayoutComponentEnum).includes(
       type as LayoutComponentEnum
     );
+  }
+
+  onDragStart() {
+    this.isDragging.update((_) => true);
+  }
+
+  onDragEnd() {
+    this.isDragging.update((_) => false);
   }
 }

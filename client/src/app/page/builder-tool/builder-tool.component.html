@@ -1,10 +1,10 @@
-<app-header (toggleLeftSideBar)="leftSideBar.toggle()"></app-header>
-
+<app-header (toggleLeftSideBar)="onToggleLeftSidePanel()"></app-header>
 <mat-drawer-container class="drawer-container" [hasBackdrop]="false">
   <mat-drawer
     #leftSideBar
-    [mode]="'side'"
+    [mode]="'over'"
     class="no-border-radius right-border"
+    [opened]="leftSideOpen()"
   >
     <app-left-side-bar></app-left-side-bar>
   </mat-drawer>

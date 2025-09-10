@@ -26,7 +26,7 @@ import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 import { BACKSPACE, DELETE } from '@angular/cdk/keycodes';
 import { PlaceholderService } from '../../core/service/placeholder.service';
 import { COMPONENT_MAP } from '../components.module';
-import { RightPanelService } from '../../core/service/right-panel.service';
+import { LayoutService } from '../../core/service/layout.service';
 
 @Component({
   selector: 'app-dynamic-component',
@@ -56,7 +56,7 @@ export class DynamicComponentComponent implements AfterViewInit, OnDestroy {
   _ngZone = inject(NgZone);
   _cdr = inject(ChangeDetectorRef);
 
-  rightPanelService = inject(RightPanelService);
+  layoutService = inject(LayoutService);
 
   placeholderService = inject(PlaceholderService);
 
@@ -140,8 +140,8 @@ export class DynamicComponentComponent implements AfterViewInit, OnDestroy {
   _onClick(event: Event) {
     event.preventDefault();
     event.stopPropagation();
-    this.rightPanelService.setElementData(this.element);
-    this.rightPanelService.openPanel();
+    this.layoutService.setElementData(this.element);
+    this.layoutService.openRightPanel();
   }
 
   formatOrigin(origin: FocusOrigin): string {

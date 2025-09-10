@@ -6,6 +6,8 @@ import { CardComponent } from './card/card.component';
 import { SelectComponent } from './select/select.component';
 import { PreviewBlockComponent } from '../preview-component/preview-block/preview-block.component';
 import { PreviewCardComponent } from '../preview-component/preview-card/preview-card.component';
+import { GridViewComponent } from './grid-view/grid-view.component';
+import { PreviewGridViewComponent } from '../preview-component/preview-grid-view/preview-grid-view.component';
 
 export const COMPONENT_MAP = new Map<string, Type<any>>([
   ['button', ButtonComponent],
@@ -13,6 +15,7 @@ export const COMPONENT_MAP = new Map<string, Type<any>>([
   ['input', InputComponent],
   ['card', CardComponent],
   ['select', SelectComponent],
+  ['grid_view', GridViewComponent],
 ]);
 
 export const PREVIEW_COMPONENT_MAP = new Map<string, Type<any>>([
@@ -21,4 +24,5 @@ export const PREVIEW_COMPONENT_MAP = new Map<string, Type<any>>([
   ['input', InputComponent],
   ['card', PreviewCardComponent],
   ['select', SelectComponent],
+  ['grid_view', PreviewGridViewComponent],
 ]);

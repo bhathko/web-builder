@@ -24,8 +24,9 @@ export enum ComponentEnum {
 
 export enum LayoutComponentEnum {
   Block = 'block',
-  FlexRow = 'flex-row',
+  FlexRow = 'flex_row',
   Card = 'card',
+  GridView = 'grid_view',
 }
 
 export type IComponentType =

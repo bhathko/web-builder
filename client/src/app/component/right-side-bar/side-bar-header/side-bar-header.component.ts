@@ -3,7 +3,7 @@ import { MatCardModule } from '@angular/material/card';
 import { IDynamicElement } from '../../../core/model/Config';
 import { MatSelectModule } from '@angular/material/select';
 
-import { RightPanelService } from '../../../core/service/right-panel.service';
+import { LayoutService } from '../../../core/service/layout.service';
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
@@ -15,7 +15,7 @@ import { MatIcon } from '@angular/material/icon';
 export class SideBarHeaderComponent {
   @Input() element!: IDynamicElement;
 
-  rightPanelService = inject(RightPanelService);
+  layoutService = inject(LayoutService);
 
   alignOptions = [
     { label: 'Horizontal', value: 'horizontal' },
@@ -32,7 +32,7 @@ export class SideBarHeaderComponent {
   }
 
   onClosePanel() {
-    this.rightPanelService.setElementData(null);
-    this.rightPanelService.closePanel();
+    this.layoutService.setElementData(null);
+    this.layoutService.closeRightPanel();
   }
 }

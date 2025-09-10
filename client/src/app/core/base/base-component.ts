@@ -182,6 +182,7 @@ export class BaseComponent {
     );
     if (index === undefined || index < 0) return;
     const [temp] = sourceParent.children?.splice(index, 1) ?? [];
+    console.log(temp, 'moved temp', sourceParent);
     if (!temp || !temp.id) return;
     this.element.children ??= [];
     const dragHelper = this.domService.getDragHelper();
@@ -208,11 +209,16 @@ export class BaseComponent {
         break;
       case DragMovePosition.Middle:
         // For middle, treat as before
+        console.log(
+          this.utilsService.isLayoutComponent,
+          dragHelper.targetId?.split('-')[0]! as IComponentType
+        );
         if (
           this.utilsService.isLayoutComponent(
             dragHelper.targetId?.split('-')[0]! as IComponentType
           )
         ) {
+          console.log(this.element, 'element be parent');
           this.domService.setParent(temp.id, this.element);
           this.element.children = this.insertAt(
             this.element.children,
@@ -220,11 +226,13 @@ export class BaseComponent {
             temp
           );
         } else {
+          console.log(targetParent, 'targetParent be parent');
           targetParent.children = this.insertAt(
             targetParent.children,
             targetIndex + 1,
             temp
           );
+          console.log(targetParent.children, 'targetParent children');
         }
 
         break;

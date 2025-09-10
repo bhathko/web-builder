@@ -5,7 +5,6 @@ import { DndModule } from 'ngx-drag-drop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
-import { HeaderComponent } from './layout/header/header.component';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
@@ -15,7 +14,6 @@ import { RouterOutlet } from '@angular/router';
     MatButtonModule,
     MatDividerModule,
     MatIconModule,
-    HeaderComponent,
     RouterOutlet,
   ],
   templateUrl: './app.component.html',

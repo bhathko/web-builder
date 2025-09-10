@@ -1,0 +1,21 @@
+<div
+  class="grid-layout"
+  dndDropzone
+  (dndDrop)="onDrop($event)"
+  [style.gridTemplateColumns]="
+    this.element.props?.['column']
+      ? 'repeat(' + this.element.props?.['column'] + ', 1fr)'
+      : 'repeat(3, 1fr)'
+  "
+>
+  @for(child of element.children; track child.id) {
+  <app-dynamic-component
+    [dndDraggable]="child"
+    [dndEffectAllowed]="'move'"
+    [element]="child"
+    (dragover)="onDragOver($event)"
+    [attr.data-item]="$index"
+  >
+  </app-dynamic-component>
+  }
+</div>
