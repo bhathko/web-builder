@@ -38,6 +38,8 @@ import { LayoutService } from '../../core/service/layout.service';
     '[attr.tabindex]': '0',
     '[class.fit-content]': '!isLayoutComponent()',
     '[class.layout-content]': 'isLayoutComponent()',
+    '[style.gridColumn]':
+      "element.props?.['colSpan'] ? 'span ' + element.props?.['colSpan'] : null",
     '(keydown)': '_onKeydown($event)',
     '(click)': '_onClick($event)',
   },

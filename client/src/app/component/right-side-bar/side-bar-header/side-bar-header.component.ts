@@ -1,21 +1,49 @@
-import { Component, inject, Input, input } from '@angular/core';
+import { Component, inject, Input, OnChanges } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { IDynamicElement } from '../../../core/model/Config';
 import { MatSelectModule } from '@angular/material/select';
 
 import { LayoutService } from '../../../core/service/layout.service';
 import { MatIcon } from '@angular/material/icon';
+import { DomService } from '../../../core/service/dom.service';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-side-bar-header',
-  imports: [MatCardModule, MatSelectModule, MatIcon],
+  imports: [
+    MatCardModule,
+    MatSelectModule,
+    MatInputModule,
+    MatIcon,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
   templateUrl: './side-bar-header.component.html',
   styleUrl: './side-bar-header.component.scss',
 })
-export class SideBarHeaderComponent {
+export class SideBarHeaderComponent implements OnChanges {
   @Input() element!: IDynamicElement;
 
   layoutService = inject(LayoutService);
+  domService = inject(DomService);
+
+  hasGridParent: boolean = false;
+
+  colspanControl = new FormControl(1);
+
+  ngOnChanges(): void {
+    if (this.element && this.element.id) {
+      const parent = this.domService.getParent(this.element.id);
+      if (parent && parent.type === 'grid_view') {
+        this.hasGridParent = true;
+      } else {
+        this.hasGridParent = false;
+      }
+    } else {
+      this.hasGridParent = false;
+    }
+  }
 
   alignOptions = [
     { label: 'Horizontal', value: 'horizontal' },
@@ -52,5 +80,14 @@ export class SideBarHeaderComponent {
   onClosePanel() {
     this.layoutService.setElementData(null);
     this.layoutService.closeRightPanel();
+  }
+
+  onColSpanChange(event: any) {
+    if (this.element && this.hasGridParent) {
+      this.element.props = {
+        ...this.element.props,
+        colSpan: event,
+      };
+    }
   }
 }

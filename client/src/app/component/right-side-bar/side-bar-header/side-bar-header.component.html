@@ -34,4 +34,18 @@
     }
   </mat-select>
 </mat-form-field>
+} @if (hasGridParent) {
+<form>
+  <mat-form-field class="select-layout">
+    <mat-label>Layout Column</mat-label>
+    <input
+      matInput
+      type="number"
+      min="1"
+      max="12"
+      [value]="element.props?.['colSpan'] ?? 1"
+      (input)="onColSpanChange($any($event.target).value)"
+    />
+  </mat-form-field>
+</form>
 }
