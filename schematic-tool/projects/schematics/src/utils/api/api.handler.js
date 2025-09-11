@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.fetchCompoentTree = fetchCompoentTree;
+exports.fetchProject = fetchProject;
 const axios_1 = require("axios");
 const environment = process.env.NODE_ENV || 'dev';
 let API_HOST = '';
@@ -19,18 +19,18 @@ if (environment === 'dev') {
 else if (environment === 'prod') {
     API_HOST = 'https://api.example.com';
 }
-function fetchCompoentTree(id) {
+function fetchProject(id) {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log('Fetching component tree for ID:', id);
-        const url = `${API_HOST}/api/component-tree/${id}`;
+        console.log('Fetching project for ID:', id);
+        const url = `${API_HOST}/api/project/${id}`;
         try {
             const response = yield axios_1.default.get(url);
-            console.log('Response from fetchCompoentTree:', response.data);
+            console.log('Response from fetchProject:', response.data);
             return response.data;
         }
         catch (error) {
-            console.error('Error fetching component tree:', error);
-            throw new Error('Failed to fetch component tree');
+            console.error('Error fetching project:', error);
+            throw new Error('Failed to fetch project');
         }
     });
 }

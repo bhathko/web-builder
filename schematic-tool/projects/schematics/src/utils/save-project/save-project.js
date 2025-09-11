@@ -3,18 +3,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CopyProject = CopyProject;
 const fs = require("fs");
 const path = require("path");
-function CopyProject() {
+function CopyProject(name) {
     return (tree, context) => {
-        const todayDate = new Date().toISOString().split('T')[0].replace(/-/g, '');
-        let version = 1;
-        let tmpDir = `../tmp/${todayDate}`;
-        const excludedDirs = ['node_modules', '.angular', '.vscode', 'projects'];
-        // Ensure the tmp directory exists
-        while (fs.existsSync(tmpDir)) {
-            fs.rmSync(tmpDir, { recursive: true, force: true });
+        if (!name) {
+            context.logger.error('Project name is required for CopyProject.');
+            return tree;
         }
-        if (!fs.existsSync(tmpDir)) {
-            fs.mkdirSync(tmpDir, { recursive: true });
+        let projectsDir = `../projects/${name}`;
+        const excludedDirs = ['node_modules', '.angular', '.vscode', 'projects'];
+        // Ensure the projects directory exists
+        while (fs.existsSync(projectsDir)) {
+            fs.rmSync(projectsDir, { recursive: true, force: true });
+        }
+        if (!fs.existsSync(projectsDir)) {
+            fs.mkdirSync(projectsDir, { recursive: true });
         }
         // Iterate through all files in the Tree
         tree.visit((filePath, fileEntry) => {
@@ -23,17 +25,17 @@ function CopyProject() {
                 return;
             }
             if (fileEntry) {
-                const fullPath = path.join(tmpDir, filePath);
+                const fullPath = path.join(projectsDir, filePath);
                 const dirName = path.dirname(fullPath);
                 // Ensure the directory structure exists
                 if (!fs.existsSync(dirName)) {
                     fs.mkdirSync(dirName, { recursive: true });
                 }
-                // Write the file content to the tmp directory
+                // Write the file content to the projects directory
                 fs.writeFileSync(fullPath, fileEntry.content);
             }
         });
-        context.logger.info(`Project copied to ${tmpDir}`);
+        context.logger.info(`Project copied to ${projectsDir}`);
         return tree;
     };
 }

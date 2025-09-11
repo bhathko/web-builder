@@ -21,7 +21,7 @@ import {
 import { DndModule } from 'ngx-drag-drop';
 import { IDynamicElement } from '../../core/model/Config';
 import { UtilsService } from '../../core/service/utils.service';
-import { DomService } from '../../core/service/dom.service';
+import { ProjectService } from '../../core/service/project.service';
 import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 import { BACKSPACE, DELETE } from '@angular/cdk/keycodes';
 import { PlaceholderService } from '../../core/service/placeholder.service';
@@ -67,7 +67,7 @@ export class DynamicComponentComponent implements AfterViewInit, OnDestroy {
   private ele = inject(ElementRef);
   public showToolbar = signal(false);
   private utilsService = inject(UtilsService);
-  private domService = inject(DomService);
+  private projectService = inject(ProjectService);
   readonly environmentInjector = inject(EnvironmentInjector);
   public componentRef:
     | ComponentRef<unknown>
@@ -79,8 +79,8 @@ export class DynamicComponentComponent implements AfterViewInit, OnDestroy {
   @HostListener('dndStart', ['$event'])
   onDragStart(event: DragEvent): void {
     event.dataTransfer?.setDragImage(this.utilsService.dragImage, 0, 0);
-    const dragHelper = this.domService.getDragHelper();
-    this.domService.setDragHelper({
+    const dragHelper = this.projectService.getDragHelper();
+    this.projectService.setDragHelper({
       ...dragHelper,
       srcNode: this.element,
     });
@@ -154,7 +154,7 @@ export class DynamicComponentComponent implements AfterViewInit, OnDestroy {
     event.stopPropagation();
     event.preventDefault();
     if (event.keyCode === BACKSPACE || event.keyCode === DELETE) {
-      const parent = this.domService.getParent(this.element.id ?? '');
+      const parent = this.projectService.getNodeParent(this.element.id ?? '');
       parent?.children?.splice(
         parent.children.findIndex((item) => item.id === this.element.id),
         1

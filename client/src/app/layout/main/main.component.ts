@@ -10,8 +10,9 @@ import { DndModule } from 'ngx-drag-drop';
 import { BaseComponent } from '../../core/base/base-component';
 import { AsyncPipe } from '@angular/common';
 import { PlaceholderComponent } from '../../core/shared/component/placeholder/placeholder.component';
-import { ComponentType } from '../header/header.component';
+
 import { LayoutService } from '../../core/service/layout.service';
+import { ComponentType } from '../../core/model/enum/Component.enum';
 
 @Component({
   selector: 'app-main',
@@ -32,15 +33,15 @@ export class MainComponent extends BaseComponent implements AfterViewInit {
   layoutService = inject(LayoutService);
   constructor() {
     super();
-    if (!this.domService.getRoot()) {
+    if (!this.projectService.getRootNode()) {
       this.element = {
         type: ComponentType.DIV,
         children: [],
         id: 'root',
       };
-      this.domService.setRoot(this.element);
+      this.projectService.setRootNode(this.element);
     } else {
-      const rootElement = this.domService.getRoot();
+      const rootElement = this.projectService.getRootNode();
       if (rootElement) {
         this.element = rootElement;
       }

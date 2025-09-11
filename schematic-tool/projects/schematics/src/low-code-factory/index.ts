@@ -13,7 +13,7 @@ import {
   url,
 } from '@angular-devkit/schematics';
 
-import { fetchCompoentTree } from '../utils/api/api.handler';
+import { fetchProject } from '../utils/api/api.handler';
 import { htmlGenerator } from '../utils/html-generator/html-generator';
 import { createPage } from './steps/create-page';
 import {
@@ -26,31 +26,31 @@ import { CopyProject } from '../utils/save-project/save-project';
 // per file.
 export function lowCodeFactory(options: any): Rule {
   return async (tree, context) => {
-    const res = await fetchCompoentTree(options.id);
-    const { pageName, component } = res.data;
-    if (!pageName || !component) {
-      throw new Error('Invalid response from fetchCompoentTree');
+    const res = await fetchProject(options.id);
+    const { name, component } = res.data;
+    if (!name || !component) {
+      throw new Error('Invalid response from fetchProject');
     }
-    if (tree.exists(`/${options.name}/src/app/page/${pageName}.component.ts`)) {
+    if (tree.exists(`/${options.name}/src/app/page/${name}.component.ts`)) {
       throw new FileAlreadyExistException(
-        `Component ${pageName} already exists in the project.`
+        `Component ${name} already exists in the project.`
       );
     }
 
     const pageContent = htmlGenerator(component);
 
-    context.logger.info(`Creating component with name: ${pageName}`);
+    context.logger.info(`Creating component with name: ${name}`);
 
     // Take a snapshot of the original tree
     const originalTree = tree.branch();
     return chain([
-      createPage(options, pageName, pageContent),
-      updateAppComponent(options, pageName),
-      updateAppComponentTemplate(options, pageName),
+      createPage(options, name, pageContent),
+      updateAppComponent(options, name),
+      updateAppComponentTemplate(options, name),
       // Ensure CopyProject runs last
       (tree, context) => {
         context.logger.info('Copying project to tmp directory...');
-        CopyProject()(tree, context);
+        CopyProject(name)(tree, context);
         tree = originalTree;
         context.logger.info('Project copied successfully.');
         return tree;

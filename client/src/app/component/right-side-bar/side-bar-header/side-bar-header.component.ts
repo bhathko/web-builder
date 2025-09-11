@@ -5,7 +5,7 @@ import { MatSelectModule } from '@angular/material/select';
 
 import { LayoutService } from '../../../core/service/layout.service';
 import { MatIcon } from '@angular/material/icon';
-import { DomService } from '../../../core/service/dom.service';
+import { ProjectService } from '../../../core/service/project.service';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 
@@ -26,7 +26,7 @@ export class SideBarHeaderComponent implements OnChanges {
   @Input() element!: IDynamicElement;
 
   layoutService = inject(LayoutService);
-  domService = inject(DomService);
+  projectService = inject(ProjectService);
 
   hasGridParent: boolean = false;
 
@@ -34,7 +34,7 @@ export class SideBarHeaderComponent implements OnChanges {
 
   ngOnChanges(): void {
     if (this.element && this.element.id) {
-      const parent = this.domService.getParent(this.element.id);
+      const parent = this.projectService.getNodeParent(this.element.id);
       if (parent && parent.type === 'grid_view') {
         this.hasGridParent = true;
       } else {

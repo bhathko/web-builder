@@ -20,26 +20,26 @@ const save_project_1 = require("../utils/save-project/save-project");
 // per file.
 function lowCodeFactory(options) {
     return (tree, context) => __awaiter(this, void 0, void 0, function* () {
-        const res = yield (0, api_handler_1.fetchCompoentTree)(options.id);
-        const { pageName, component } = res.data;
-        if (!pageName || !component) {
-            throw new Error('Invalid response from fetchCompoentTree');
+        const res = yield (0, api_handler_1.fetchProject)(options.id);
+        const { name, component } = res.data;
+        if (!name || !component) {
+            throw new Error('Invalid response from fetchProject');
         }
-        if (tree.exists(`/${options.name}/src/app/page/${pageName}.component.ts`)) {
-            throw new schematics_1.FileAlreadyExistException(`Component ${pageName} already exists in the project.`);
+        if (tree.exists(`/${options.name}/src/app/page/${name}.component.ts`)) {
+            throw new schematics_1.FileAlreadyExistException(`Component ${name} already exists in the project.`);
         }
         const pageContent = (0, html_generator_1.htmlGenerator)(component);
-        context.logger.info(`Creating component with name: ${pageName}`);
+        context.logger.info(`Creating component with name: ${name}`);
         // Take a snapshot of the original tree
         const originalTree = tree.branch();
         return (0, schematics_1.chain)([
-            (0, create_page_1.createPage)(options, pageName, pageContent),
-            (0, update_app_component_1.updateAppComponent)(options, pageName),
-            (0, update_app_component_1.updateAppComponentTemplate)(options, pageName),
+            (0, create_page_1.createPage)(options, name, pageContent),
+            (0, update_app_component_1.updateAppComponent)(options, name),
+            (0, update_app_component_1.updateAppComponentTemplate)(options, name),
             // Ensure CopyProject runs last
             (tree, context) => {
                 context.logger.info('Copying project to tmp directory...');
-                (0, save_project_1.CopyProject)()(tree, context);
+                (0, save_project_1.CopyProject)(name)(tree, context);
                 tree = originalTree;
                 context.logger.info('Project copied successfully.');
                 return tree;

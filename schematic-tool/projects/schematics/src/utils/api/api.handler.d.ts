@@ -1,1 +1,1 @@
-export declare function fetchCompoentTree(id: string): Promise<any>;
+export declare function fetchProject(id: string): Promise<any>;

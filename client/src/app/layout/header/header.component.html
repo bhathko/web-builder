@@ -2,36 +2,68 @@
   <div class="left-icons">
     <mat-icon
       fontIcon="menu"
-      (click)="toggleComponentList()"
+      (click)="onToggleMenu()"
       matTooltip="Toggle Menu"
     ></mat-icon>
     <span class="app-title">CUB Web Builder</span>
   </div>
 
+  @if (editMode()) {
+  <form [formGroup]="form">
+    <div class="d-flex align-items-center">
+      <input
+        class="project-name-input"
+        type="text"
+        placeholder="Project Name"
+        formControlName="name"
+      />
+      <mat-icon
+        (click)="onChangeName()"
+        fontIcon="check"
+        matTooltip="Save Name Change"
+      ></mat-icon>
+      <mat-icon
+        (click)="onCancelChangeName()"
+        fontIcon="close"
+        matTooltip="Cancel Name Change"
+      ></mat-icon>
+    </div>
+  </form>
+  } @else {
+  <div class="d-flex align-items-center">
+    <span class="project-name">{{ nameControl.value }}</span>
+    <mat-icon
+      (click)="onEdit()"
+      fontIcon="edit"
+      matTooltip="Edit Project Name"
+    ></mat-icon>
+  </div>
+  }
+
   <div class="right-icons">
     <mat-icon
-      (click)="print()"
+      (click)="onPrintRoot()"
       fontIcon="code"
       matTooltip="Print Root"
     ></mat-icon>
     <mat-icon
-      (click)="sendDataToServer()"
-      fontIcon="file_upload"
-      matTooltip="Send Data To Server"
+      (click)="onSave()"
+      fontIcon="save"
+      matTooltip="Save Project"
     ></mat-icon>
 
     <mat-icon
-      (click)="generateProject()"
-      fontIcon="file_copy"
-      matTooltip="Prepare Project"
+      (click)="onBuild()"
+      fontIcon="build"
+      matTooltip="Build Project"
     ></mat-icon>
     <mat-icon
-      (click)="getComponentStatus()"
+      (click)="onProjectStatus()"
       fontIcon="info"
       matTooltip="Get Status"
     ></mat-icon>
     <mat-icon
-      (click)="getDownload()"
+      (click)="onDownload()"
       fontIcon="file_download"
       matTooltip="Download Project"
     ></mat-icon>
@@ -41,15 +73,4 @@
       matTooltip="Preview Project"
     ></mat-icon>
   </div>
-
-  <!-- @if (currentUrl() === '/builder') {
-
-  } @else { -->
-
-  <!-- <mat-icon
-    (click)="onBuilder()"
-    fontIcon="handyman"
-    matTooltip="Open Builder"
-  ></mat-icon> -->
-  <!-- } -->
 </div>

@@ -5,7 +5,7 @@ import {
   ComponentEnum,
   LayoutComponentEnum,
 } from '../../core/model/Config';
-import { DomService } from '../../core/service/dom.service';
+import { ProjectService } from '../../core/service/project.service';
 import { PlaceholderService } from '../../core/service/placeholder.service';
 import { UtilsService } from '../../core/service/utils.service';
 import { DndModule } from 'ngx-drag-drop';
@@ -21,7 +21,7 @@ import { LayoutService } from '../../core/service/layout.service';
 export class LeftSideBarComponent {
   http = inject(HttpClient);
 
-  domService = inject(DomService);
+  projectService = inject(ProjectService);
   utilsService = inject(UtilsService);
   layoutService = inject(LayoutService);
   placeholderService = inject(PlaceholderService);
@@ -52,7 +52,7 @@ export class LeftSideBarComponent {
   ];
   generateProject() {
     this.http
-      .post('api/generate', this.domService.getRoot())
+      .post('api/generate', this.projectService.getRootNode())
       .subscribe((res) => {
         console.log(res);
       });

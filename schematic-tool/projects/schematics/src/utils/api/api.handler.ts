@@ -10,15 +10,15 @@ if (environment === 'dev') {
   API_HOST = 'https://api.example.com';
 }
 
-export async function fetchCompoentTree(id: string) {
-  console.log('Fetching component tree for ID:', id);
-  const url = `${API_HOST}/api/component-tree/${id}`;
+export async function fetchProject(id: string) {
+  console.log('Fetching project for ID:', id);
+  const url = `${API_HOST}/api/project/${id}`;
   try {
     const response = await axios.get(url);
-    console.log('Response from fetchCompoentTree:', response.data);
+    console.log('Response from fetchProject:', response.data);
     return response.data;
   } catch (error) {
-    console.error('Error fetching component tree:', error);
-    throw new Error('Failed to fetch component tree');
+    console.error('Error fetching project:', error);
+    throw new Error('Failed to fetch project');
   }
 }
