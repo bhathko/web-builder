@@ -4,7 +4,10 @@ import { ProjectService } from '../../core/service/project.service';
 import { map, Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { HttpResponse } from '@angular/common/http';
-import { SaveProjectRes } from '../../core/repository/project/project.model';
+import {
+  AllProjectData,
+  SaveProjectRes,
+} from '../../core/repository/project/project.model';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +18,11 @@ export class HeaderService {
   router = inject(Router);
 
   printRootNode() {
-    console.log(JSON.stringify(this.projectService.getRootNode()));
+    console.log(this.projectService.getRootNode());
+  }
+
+  allProjects(): Observable<AllProjectData> {
+    return this.projectRepository.onGetAllProjects();
   }
 
   createProject(): Observable<SaveProjectRes | null> {
@@ -42,6 +49,19 @@ export class HeaderService {
       });
     }
     return of(null);
+  }
+
+  loadProject(id: string): Observable<string | null> {
+    return this.projectRepository.onGetProject(id).pipe(
+      map((res) => {
+        if (res && res.data) {
+          this.projectService.loadProject(res);
+
+          return res.message;
+        }
+        return null;
+      })
+    );
   }
 
   buildProject(): Observable<boolean> {

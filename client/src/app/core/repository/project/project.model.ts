@@ -15,3 +15,14 @@ export type SaveProjectRes = {
   };
   message: string;
 };
+
+export type AllProjectData = {
+  data: ProjectData[];
+  message: string;
+};
+
+export type ProjectData = {
+  id: string;
+  name: string;
+  lastModifyDate: string;
+};

@@ -1,8 +1,10 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { DEFAULT_DRAG_STATE, IDynamicElement } from '../model/Config';
 import { BehaviorSubject } from 'rxjs';
 import { DragState } from '../model/EventTypes';
 import { UtilsService } from './utils.service';
+import { ProjectRepository } from '../repository/project/project.repository';
+import { SaveProjectRes } from '../repository/project/project.model';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +24,9 @@ export class ProjectService {
   private dragHelper: BehaviorSubject<DragState> =
     new BehaviorSubject<DragState>(DEFAULT_DRAG_STATE);
 
-  constructor() {}
+  projectRepository = inject(ProjectRepository);
+
+  rootNode$ = this.rootNode.asObservable();
 
   getNodeParent(id: string): IDynamicElement | undefined {
     return this.parentMap.get(id);
@@ -53,5 +57,29 @@ export class ProjectService {
 
   getProjectInfo() {
     return this.projectInfo.getValue();
+  }
+
+  deleteProject(id: string) {
+    return this.projectRepository.onDeleteProject(id);
+  }
+
+  loadProject(project: SaveProjectRes) {
+    if (!project || !project.data) return;
+    this.setProjectInfo({ id: project.data._id, name: project.data.name });
+    this.setRootNode(project.data.component);
+    this.parentMap.clear();
+    this.buildParentMap(project.data.component, null);
+  }
+
+  private buildParentMap(
+    node: IDynamicElement,
+    parent: IDynamicElement | null
+  ): void {
+    if (parent) {
+      this.parentMap.set(node.id!, parent);
+    }
+    node.children?.forEach((child) => {
+      this.buildParentMap(child, node);
+    });
   }
 }

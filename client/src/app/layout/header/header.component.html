@@ -42,6 +42,11 @@
 
   <div class="right-icons">
     <mat-icon
+      (click)="onCheckList()"
+      fontIcon="view_list"
+      matTooltip="View All Project"
+    ></mat-icon>
+    <mat-icon
       (click)="onPrintRoot()"
       fontIcon="code"
       matTooltip="Print Root"

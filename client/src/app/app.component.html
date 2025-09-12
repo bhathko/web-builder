@@ -1,2 +1,5 @@
-
 <router-outlet></router-outlet>
+@if (showLoading$ | async) {
+<div class="spinner-backdrop"></div>
+<mat-spinner class="loading-spinner" mode="indeterminate"></mat-spinner>
+}

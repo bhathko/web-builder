@@ -11,19 +11,18 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { filter, map, Subscription } from 'rxjs';
-import { ComponentService } from '../../core/service/component.service';
-import { ProjectService } from '../../core/service/project.service';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import {
   FormBuilder,
   FormControl,
-  FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
 import { HeaderService } from './header.service';
-import { SaveProjectRes } from '../../core/repository/project/project.model';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ProjectListComponent } from '../../shared-component/dialog/project-list/project-list.component';
+import { of, switchMap } from 'rxjs';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { LoadingService } from '../../core/service/loading.service';
 
 @Component({
   selector: 'app-header',
@@ -32,6 +31,7 @@ import { SaveProjectRes } from '../../core/repository/project/project.model';
     MatDividerModule,
     MatIconModule,
     MatTooltipModule,
+    MatSnackBarModule,
     ReactiveFormsModule,
   ],
   templateUrl: './header.component.html',
@@ -39,6 +39,9 @@ import { SaveProjectRes } from '../../core/repository/project/project.model';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   headerService = inject(HeaderService);
+  loadingService = inject(LoadingService);
+  dialog = inject(MatDialog);
+  snackbar = inject(MatSnackBar);
 
   fb = inject(FormBuilder);
 
@@ -66,6 +69,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   onChangeName() {
     if (this.form.invalid) return;
     this.headerService.changeProjectName(this.nameControl.value || '');
+    this.onSave();
     this.editMode.update(() => false);
   }
 
@@ -96,9 +100,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
       if (res && res.data) {
         const { _id, name } = res.data;
         this.headerService.setProjectInfo({ id: _id, name });
+        this.snackbar.open(res.message, 'Close', {
+          duration: 3000,
+          verticalPosition: 'bottom',
+          horizontalPosition: 'right',
+        });
       }
-
-      console.log('Project created successfully:', res);
     });
   }
 
@@ -127,5 +134,48 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onToggleMenu() {
     this.toggleLeftSideBar.emit();
+  }
+
+  onCheckList() {
+    this.headerService
+      .allProjects()
+      .pipe(
+        switchMap((res) => {
+          let dialogConfig = new MatDialogConfig();
+          dialogConfig = {
+            ...dialogConfig,
+            width: '600px',
+            height: '400px',
+            panelClass: 'project-list-card',
+            autoFocus: false,
+            data: res?.data,
+          };
+          if (res && res.data) {
+            return this.dialog
+              .open(ProjectListComponent, dialogConfig)
+              .afterClosed();
+          } else {
+            return of(null);
+          }
+        }),
+        switchMap((project) => {
+          if (project) {
+            this.loadingService.pageRefresh();
+            return this.headerService.loadProject(project.id);
+          }
+          return of(null);
+        })
+      )
+      .subscribe((message) => {
+        const projectInfo = this.headerService.getProjectInfo();
+        this.nameControl.setValue(projectInfo?.name || 'Untitled Project');
+        if (message) {
+          this.snackbar.open(message, 'Close', {
+            duration: 3000,
+            verticalPosition: 'bottom',
+            horizontalPosition: 'right',
+          });
+        }
+      });
   }
 }

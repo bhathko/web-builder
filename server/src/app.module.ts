@@ -1,10 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ProjectModule } from './modules/project/project.module';
-import {
-  Project,
-  ProjectSchema,
-} from './modules/project/schemas/project.schema';
 
 @Module({
   imports: [

@@ -7,6 +7,7 @@ import path from 'path';
 import fs from 'fs';
 import { spawn } from 'child_process';
 import archiver from 'archiver';
+import { GetAllProjectDto } from './dto/get-project.dto';
 
 @Injectable()
 export class ProjectService {
@@ -21,8 +22,17 @@ export class ProjectService {
     return this.projectModel.create({ ...dto, lastModifyDate: new Date() });
   }
 
-  async findAll(): Promise<Project[]> {
-    return this.projectModel.find().exec();
+  async findAll(): Promise<GetAllProjectDto[]> {
+    const fields = ['id', 'name', 'lastModifyDate'];
+    const projects = await this.projectModel
+      .find()
+      .select(fields.join(' '))
+      .exec();
+    return projects.map((project) => ({
+      id: project._id,
+      name: project.name,
+      lastModifyDate: project.lastModifyDate,
+    }));
   }
 
   async findOne(id: string): Promise<Project | null> {

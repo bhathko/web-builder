@@ -13,6 +13,7 @@ import { PlaceholderComponent } from '../../core/shared/component/placeholder/pl
 
 import { LayoutService } from '../../core/service/layout.service';
 import { ComponentType } from '../../core/model/enum/Component.enum';
+import { LoadingService } from '../../core/service/loading.service';
 
 @Component({
   selector: 'app-main',
@@ -31,20 +32,25 @@ import { ComponentType } from '../../core/model/enum/Component.enum';
 export class MainComponent extends BaseComponent implements AfterViewInit {
   @ViewChild('mainContent', { static: true }) mainRef!: ElementRef;
   layoutService = inject(LayoutService);
+  loadingService = inject(LoadingService);
+
+  refreshPage$ = this.loadingService.refreshPage$;
   constructor() {
     super();
+
+    this.projectService.rootNode$.subscribe((root) => {
+      if (root) {
+        this.element = root;
+        this.loadNewProject();
+      }
+    });
+
     if (!this.projectService.getRootNode()) {
-      this.element = {
+      this.projectService.setRootNode({
         type: ComponentType.DIV,
         children: [],
         id: 'root',
-      };
-      this.projectService.setRootNode(this.element);
-    } else {
-      const rootElement = this.projectService.getRootNode();
-      if (rootElement) {
-        this.element = rootElement;
-      }
+      });
     }
   }
 
@@ -54,5 +60,12 @@ export class MainComponent extends BaseComponent implements AfterViewInit {
   _onClick(event: MouseEvent) {
     event.stopPropagation();
     this.layoutService.closeLeftPanel();
+  }
+
+  loadNewProject() {
+    setTimeout(() => {
+      // Load your new project data here
+      this.loadingService.pageRefreshed();
+    }, 1000);
   }
 }

@@ -43,6 +43,7 @@ export class ProjectController {
   async findAll() {
     try {
       const result = await this.projectService.findAll();
+      
       return { message: 'Fetched successfully', data: result };
     } catch (error: unknown) {
       throw new HttpException(

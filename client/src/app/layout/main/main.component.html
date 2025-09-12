@@ -1,5 +1,6 @@
 <div class="main-content" #mainContent dndDropzone (dndDrop)="onDrop($event)">
-  @for(child of element.children; track child.id) {
+  @if (!(refreshPage$ | async)) {@for(child of element.children; track child.id)
+  {
   <app-dynamic-component
     [dndDraggable]="child"
     [dndEffectAllowed]="'move'"
@@ -12,5 +13,5 @@
   <app-placeholder
     [config]="placeholderService.placeholder | async"
   ></app-placeholder
-  >}
+  >} }
 </div>

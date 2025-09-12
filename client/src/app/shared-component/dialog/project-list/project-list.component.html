@@ -1,0 +1,35 @@
+<div class="d-flex align-items-center justify-content-between header">
+  <div class="project-list-title">Project List</div>
+  <button
+    mat-icon-button
+    mat-dialog-close
+    aria-label="Close"
+    class="close-button"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<mat-dialog-content>
+  <mat-list>
+    @for (item of items; track $index) {
+    <mat-list-item>
+      <mat-icon matListItemIcon>folder</mat-icon>
+      <div matListItemTitle>{{ item.name }}</div>
+      <div matListItemLine>
+        {{ item.lastModifyDate | date : "yyyy-MM-dd HH:mm:ss" : "+0800" }}
+      </div>
+      <div matListItemMeta>
+        <div class="action-icons">
+          <mat-icon class="cursor-pointer" (click)="onLoad(item)"
+            >install_desktop</mat-icon
+          >
+          <mat-icon class="cursor-pointer" (click)="onDelete(item)"
+            >delete</mat-icon
+          >
+        </div>
+      </div>
+    </mat-list-item>
+    }
+  </mat-list>
+</mat-dialog-content>

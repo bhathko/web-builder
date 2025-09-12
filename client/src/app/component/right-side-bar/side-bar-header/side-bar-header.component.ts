@@ -1,13 +1,13 @@
 import { Component, inject, Input, OnChanges } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { IDynamicElement } from '../../../core/model/Config';
-import { MatSelectModule } from '@angular/material/select';
 
-import { LayoutService } from '../../../core/service/layout.service';
-import { MatIcon } from '@angular/material/icon';
-import { ProjectService } from '../../../core/service/project.service';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { MatIcon } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
+import { IDynamicElement } from '../../../core/model/Config';
+import { LayoutService } from '../../../core/service/layout.service';
+import { ProjectService } from '../../../core/service/project.service';
 
 @Component({
   selector: 'app-side-bar-header',
