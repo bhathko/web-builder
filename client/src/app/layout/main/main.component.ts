@@ -46,11 +46,7 @@ export class MainComponent extends BaseComponent implements AfterViewInit {
     });
 
     if (!this.projectService.getRootNode()) {
-      this.projectService.setRootNode({
-        type: ComponentType.DIV,
-        children: [],
-        id: 'root',
-      });
+      this.projectService.initializeProject();
     }
   }
 

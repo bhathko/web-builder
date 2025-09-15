@@ -109,6 +109,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
   }
 
+  onCreate() {
+    this.headerService.setProjectInfo({
+      name: 'Untitled Project',
+      id: undefined,
+    });
+    this.nameControl.setValue('Untitled Project');
+    this.headerService.resetProject();
+  }
+
   onBuild() {
     this.headerService.buildProject().subscribe((res) => {
       if (res) {

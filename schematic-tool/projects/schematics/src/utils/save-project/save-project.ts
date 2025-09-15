@@ -2,14 +2,14 @@ import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import * as fs from 'fs';
 import * as path from 'path';
 
-export function CopyProject(name: string): Rule {
+export function CopyProject(_id: string): Rule {
   return (tree: Tree, context: SchematicContext) => {
-    if (!name) {
-      context.logger.error('Project name is required for CopyProject.');
+    if (!_id) {
+      context.logger.error('Project _id is required for CopyProject.');
       return tree;
     }
 
-    let projectsDir = `../projects/${name}`;
+    let projectsDir = `../projects/${_id}`;
     const excludedDirs = ['node_modules', '.angular', '.vscode', 'projects'];
     // Ensure the projects directory exists
     while (fs.existsSync(projectsDir)) {
@@ -29,11 +29,11 @@ export function CopyProject(name: string): Rule {
 
       if (fileEntry) {
         const fullPath = path.join(projectsDir, filePath);
-        const dirName = path.dirname(fullPath);
+        const dir_id = path.dirname(fullPath);
 
         // Ensure the directory structure exists
-        if (!fs.existsSync(dirName)) {
-          fs.mkdirSync(dirName, { recursive: true });
+        if (!fs.existsSync(dir_id)) {
+          fs.mkdirSync(dir_id, { recursive: true });
         }
 
         // Write the file content to the projects directory

@@ -21,7 +21,7 @@ const save_project_1 = require("../utils/save-project/save-project");
 function lowCodeFactory(options) {
     return (tree, context) => __awaiter(this, void 0, void 0, function* () {
         const res = yield (0, api_handler_1.fetchProject)(options.id);
-        const { name, component } = res.data;
+        const { _id, name, component } = res.data;
         if (!name || !component) {
             throw new Error('Invalid response from fetchProject');
         }
@@ -39,7 +39,7 @@ function lowCodeFactory(options) {
             // Ensure CopyProject runs last
             (tree, context) => {
                 context.logger.info('Copying project to tmp directory...');
-                (0, save_project_1.CopyProject)(name)(tree, context);
+                (0, save_project_1.CopyProject)(_id)(tree, context);
                 tree = originalTree;
                 context.logger.info('Project copied successfully.');
                 return tree;

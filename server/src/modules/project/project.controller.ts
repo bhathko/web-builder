@@ -43,7 +43,7 @@ export class ProjectController {
   async findAll() {
     try {
       const result = await this.projectService.findAll();
-      
+
       return { message: 'Fetched successfully', data: result };
     } catch (error: unknown) {
       throw new HttpException(
@@ -139,16 +139,27 @@ export class ProjectController {
       throw new HttpException('File not ready', HttpStatus.BAD_REQUEST);
     }
     this.logger.log(`Downloading project zip for id: ${filePath}`);
-    const file = createReadStream(filePath);
+    try {
+      const file = createReadStream(filePath);
 
-    const fileName = path.basename(filePath);
-    this.logger.log(`File name: ${fileName}`);
+      const project = await this.projectService.findOne(id);
+      if (!project) {
+        throw new HttpException('Project not found', HttpStatus.NOT_FOUND);
+      }
+      this.logger.log(`File name: ${project.name}.zip`);
 
-    res.set({
-      'Content-Type': 'application/zip', // <-- fix here
-      'Content-Disposition': `attachment; filename="${fileName}"`,
-      'Access-Control-Expose-Headers': 'Content-Disposition',
-    });
-    file.pipe(res);
+      res.set({
+        'Content-Type': 'application/zip', // <-- fix here
+        'Content-Disposition': `attachment; filename="${project.name}.zip"`,
+        'Access-Control-Expose-Headers': 'Content-Disposition',
+      });
+      file.pipe(res);
+    } catch (error) {
+      this.logger.error('Error to download project', error);
+      throw new HttpException(
+        extractErrorMessage(error, 'An error occurred'),
+        HttpStatus.BAD_REQUEST,
+      );
+    }
   }
 }

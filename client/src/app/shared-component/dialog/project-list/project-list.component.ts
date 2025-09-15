@@ -83,6 +83,9 @@ export class ProjectListComponent implements OnInit {
       )
       .subscribe((res) => {
         if (res) {
+          if (this.projectService.getProjectInfo()?.id === item.id) {
+            this.projectService.resetProject();
+          }
           this.snackbar.open(res.message, 'Close', {
             duration: 3000,
             verticalPosition: 'bottom',

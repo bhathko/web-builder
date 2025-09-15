@@ -5,6 +5,7 @@ import { DragState } from '../model/EventTypes';
 import { UtilsService } from './utils.service';
 import { ProjectRepository } from '../repository/project/project.repository';
 import { SaveProjectRes } from '../repository/project/project.model';
+import { ComponentType } from '../model/enum/Component.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -69,6 +70,21 @@ export class ProjectService {
     this.setRootNode(project.data.component);
     this.parentMap.clear();
     this.buildParentMap(project.data.component, null);
+  }
+
+  initializeProject() {
+    this.setRootNode({
+      type: ComponentType.DIV,
+      children: [],
+      id: 'root',
+    });
+  }
+
+  resetProject() {
+    this.setProjectInfo({ id: undefined, name: 'Untitled Project' });
+    this.parentMap.clear();
+    this.dragHelper.next(DEFAULT_DRAG_STATE);
+    this.initializeProject();
   }
 
   private buildParentMap(

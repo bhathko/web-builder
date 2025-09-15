@@ -44,6 +44,13 @@ export class ProjectService {
   }
 
   async remove(id: string): Promise<Project | null> {
+    fs.rmSync(path.join(__dirname, `../../../../projects/${id}`), {
+      recursive: true,
+      force: true,
+    });
+    fs.rmSync(path.join(__dirname, `../../../../projects/${id}.zip`), {
+      force: true,
+    });
     return this.projectModel.findByIdAndDelete(id).exec();
   }
 
@@ -77,7 +84,11 @@ export class ProjectService {
       const status = code === 0 ? 'done' : 'failed';
       let projectDir = '';
       if (status === 'done') {
-        projectDir = path.join(__dirname, '../../../../projects', name);
+        projectDir = path.join(
+          __dirname,
+          '../../../../projects',
+          id.toString(),
+        );
       }
       await this.projectModel.findByIdAndUpdate(
         id,
@@ -103,7 +114,10 @@ export class ProjectService {
     this.logger.log(
       `Compressing project directory: ${doc.projectDir} ${!fs.existsSync(doc.projectDir as string)}`,
     );
-    if (doc.projectDir && !fs.existsSync(`${doc.projectDir}.zip`)) {
+    if (doc.projectDir) {
+      if (fs.existsSync(`${doc.projectDir}.zip`)) {
+        fs.unlinkSync(`${doc.projectDir}.zip`);
+      }
       let zipPath = `${doc.projectDir}.zip`;
 
       await this.compressProject(doc.projectDir, zipPath);
@@ -130,7 +144,6 @@ export class ProjectService {
 
       output.on('close', resolve);
       archive.on('error', reject);
-
       archive.pipe(output);
       archive.directory(sourceDir, false);
       archive.finalize();

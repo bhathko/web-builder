@@ -27,7 +27,7 @@ import { CopyProject } from '../utils/save-project/save-project';
 export function lowCodeFactory(options: any): Rule {
   return async (tree, context) => {
     const res = await fetchProject(options.id);
-    const { name, component } = res.data;
+    const { _id, name, component } = res.data;
     if (!name || !component) {
       throw new Error('Invalid response from fetchProject');
     }
@@ -50,7 +50,7 @@ export function lowCodeFactory(options: any): Rule {
       // Ensure CopyProject runs last
       (tree, context) => {
         context.logger.info('Copying project to tmp directory...');
-        CopyProject(name)(tree, context);
+        CopyProject(_id)(tree, context);
         tree = originalTree;
         context.logger.info('Project copied successfully.');
         return tree;

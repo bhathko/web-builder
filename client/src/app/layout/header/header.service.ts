@@ -164,4 +164,8 @@ export class HeaderService {
     }
     return null;
   }
+
+  resetProject() {
+    this.projectService.resetProject();
+  }
 }
