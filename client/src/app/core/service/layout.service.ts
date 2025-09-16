@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { IDynamicElement } from '../model/Config';
+import { IDynamicElement } from '../model/Config.type';
 
 @Injectable({
   providedIn: 'root',

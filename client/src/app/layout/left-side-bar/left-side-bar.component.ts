@@ -4,13 +4,15 @@ import {
   IDynamicElement,
   ComponentEnum,
   LayoutComponentEnum,
-} from '../../core/model/Config';
+} from '../../core/model/Config.type';
 import { ProjectService } from '../../core/service/project.service';
 import { PlaceholderService } from '../../core/service/placeholder.service';
 import { UtilsService } from '../../core/service/utils.service';
 import { DndModule } from 'ngx-drag-drop';
 import { MatIconModule } from '@angular/material/icon';
 import { LayoutService } from '../../core/service/layout.service';
+import { DEFAULT_SELECT_OPTIONS } from './left-side-bar.const';
+import { SelectOption } from '../../core/model/Common.type';
 
 @Component({
   selector: 'app-left-side-bar',
@@ -30,16 +32,21 @@ export class LeftSideBarComponent {
     {
       type: ComponentEnum.Button,
       content: 'Button1',
+      props: {},
     },
     {
       type: ComponentEnum.Input,
+      props: {},
     },
     {
       type: ComponentEnum.Select,
+      props: {},
+      data: this.deepCopy<Array<SelectOption>>(DEFAULT_SELECT_OPTIONS),
     },
     {
       type: LayoutComponentEnum.Card,
       children: [],
+      props: {},
     },
     {
       type: LayoutComponentEnum.GridView,
@@ -69,5 +76,9 @@ export class LeftSideBarComponent {
     if (event.clientX > 300) {
       this.layoutService.closeLeftPanel();
     }
+  }
+
+  deepCopy<T>(obj: T): T {
+    return JSON.parse(JSON.stringify(obj));
   }
 }

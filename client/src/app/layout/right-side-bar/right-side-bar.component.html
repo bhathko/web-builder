@@ -1,5 +1,14 @@
-<div class="panel-layout">
-  <ng-template #headerContainer></ng-template>
-  <ng-template #contentContainer></ng-template>
-  <ng-template #footerContainer></ng-template>
+<div class="panel-layout" cdkOverlayOrigin #trigger="cdkOverlayOrigin">
+  <ng-template #panelContainer></ng-template>
 </div>
+
+<ng-template
+  cdkConnectedOverlay
+  [cdkConnectedOverlayOrigin]="trigger"
+  [cdkConnectedOverlayOpen]="((extraPanelOpen$ | async) ?? []).length > 0"
+  [cdkConnectedOverlayPositions]="extraPanelPosition"
+>
+  <div class="connection-panel">
+    <ng-template [cdkPortalOutlet]="connectionPanelPortal"></ng-template>
+  </div>
+</ng-template>

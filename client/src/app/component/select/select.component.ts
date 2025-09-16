@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { MatSelectModule } from '@angular/material/select';
+import { SelectOption } from '../../core/model/Common.type';
 
 @Component({
   selector: 'app-select',
@@ -8,9 +9,6 @@ import { MatSelectModule } from '@angular/material/select';
   styleUrl: './select.component.scss',
 })
 export class SelectComponent {
-  @Input() foods: { label: string; value: string }[] = [
-    { label: 'Pizza', value: 'pizza' },
-    { label: 'Burger', value: 'burger' },
-    { label: 'Sushi', value: 'sushi' },
-  ];
+  @Input() title?: string;
+  @Input() data: Array<SelectOption> = [];
 }

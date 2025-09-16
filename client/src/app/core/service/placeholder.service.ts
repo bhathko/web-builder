@@ -1,6 +1,6 @@
 import { ElementRef, Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { DragMovePosition } from '../model/EventTypes';
+import { DragMovePosition } from '../model/Event.types';
 
 export type PlaceHolderConfig = {
   left: string;

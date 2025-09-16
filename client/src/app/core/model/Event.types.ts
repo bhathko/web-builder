@@ -1,4 +1,4 @@
-import { IDynamicElement } from './Config';
+import { IDynamicElement } from './Config.type';
 
 export enum DndDropEffect {
   Copy = 'copy',

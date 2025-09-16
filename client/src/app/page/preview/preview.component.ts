@@ -15,7 +15,7 @@ import { ButtonComponent } from '../../component/button/button.component';
 import { PreviewBaseDirective } from '../../preview-component/preview-base/preview-base';
 import { take } from 'rxjs';
 import { ProjectService } from '../../core/service/project.service';
-import { IDynamicElement } from '../../core/model/Config';
+import { IDynamicElement } from '../../core/model/Config.type';
 import { PreviewGridViewComponent } from '../../preview-component/preview-grid-view/preview-grid-view.component';
 
 export type LayoutComponent = {

@@ -5,7 +5,7 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { Subject } from 'rxjs';
-import { IDynamicElement } from '../../core/model/Config';
+import { IDynamicElement } from '../../core/model/Config.type';
 
 @Directive()
 export abstract class PreviewBaseDirective implements AfterViewInit {

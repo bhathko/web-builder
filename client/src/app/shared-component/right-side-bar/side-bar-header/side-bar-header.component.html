@@ -1,0 +1,10 @@
+<div class="header">
+  <div class="title">{{ element.id ?? "" }}</div>
+  <mat-icon
+    fontIcon="close"
+    class="close-icon"
+    (click)="onClosePanel()"
+  ></mat-icon>
+</div>
+
+<div class="sub-title">{{ element.type ?? "" }}</div>

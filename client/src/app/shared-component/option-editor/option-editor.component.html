@@ -1,0 +1,33 @@
+<div class="editor-layout">
+  <h2>Option Editor</h2>
+  <form [formGroup]="form">
+    <div class="input-group">
+      <mat-form-field appearance="fill">
+        <mat-label>Label</mat-label>
+        <input matInput id="optionLabel" formControlName="optionLabel" />
+        @if(optionLabelControl?.invalid && (optionLabelControl?.dirty ||
+        optionLabelControl?.touched)) {
+        <mat-error>Label is required</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Value</mat-label>
+        <input matInput id="optionValue" formControlName="optionValue" />
+        @if(optionValueControl?.invalid && (optionValueControl?.dirty ||
+        optionValueControl?.touched)) {
+        <mat-error>Value is required</mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <div class="footer">
+      <button matButton="outlined" type="button" (click)="onCancelUpdate()">
+        Cancel
+      </button>
+      <button matButton="filled" type="button" (click)="onUpdateOption()">
+        Save
+      </button>
+    </div>
+  </form>
+</div>

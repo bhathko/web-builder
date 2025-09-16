@@ -17,7 +17,7 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { DndModule } from 'ngx-drag-drop';
-import { IDynamicElement } from '../../core/model/Config';
+import { IDynamicElement } from '../../core/model/Config.type';
 import { UtilsService } from '../../core/service/utils.service';
 import { ProjectService } from '../../core/service/project.service';
 import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
@@ -134,6 +134,19 @@ export class DynamicComponentComponent implements AfterViewInit, OnDestroy {
         environmentInjector: this.environmentInjector,
       });
       component.instance.element = this.element;
+      if (this.element.props) {
+        Object.keys(this.element.props).forEach((key) => {
+          if (key in component.instance) {
+            component.instance[key] = this.element.props[key];
+          }
+        });
+      }
+      if (this.element.content && 'content' in component.instance) {
+        component.instance['content'] = this.element.content;
+      }
+      if (this.element['data'] && 'data' in component.instance) {
+        component.instance['data'] = this.element['data'];
+      }
     }
   }
 

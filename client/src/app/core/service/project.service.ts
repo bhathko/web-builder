@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
-import { DEFAULT_DRAG_STATE, IDynamicElement } from '../model/Config';
+import { DEFAULT_DRAG_STATE, IDynamicElement } from '../model/Config.type';
 import { BehaviorSubject } from 'rxjs';
-import { DragState } from '../model/EventTypes';
+import { DragState } from '../model/Event.types';
 import { UtilsService } from './utils.service';
 import { ProjectRepository } from '../repository/project/project.repository';
 import { SaveProjectRes } from '../repository/project/project.model';
@@ -77,6 +77,7 @@ export class ProjectService {
       type: ComponentType.DIV,
       children: [],
       id: 'root',
+      props: {},
     });
   }
 

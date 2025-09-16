@@ -1,4 +1,4 @@
-import { DragState } from './EventTypes';
+import { DragState } from './Event.types';
 
 export type IDynamicElement = {
   type?: IComponentType;
@@ -7,7 +7,7 @@ export type IDynamicElement = {
     [key: string]: any;
   };
   content?: string;
-  props?: {
+  props: {
     [key: string]: string;
   };
   children?: Array<IDynamicElement>;

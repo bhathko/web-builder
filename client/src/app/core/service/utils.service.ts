@@ -3,7 +3,7 @@ import {
   ComponentEnum,
   IComponentType,
   LayoutComponentEnum,
-} from '../model/Config';
+} from '../model/Config.type';
 
 @Injectable({
   providedIn: 'root',

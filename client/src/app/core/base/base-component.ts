@@ -1,8 +1,8 @@
 import { Component, inject, Input } from '@angular/core';
-import { IComponentType, IDynamicElement } from '../model/Config';
+import { IComponentType, IDynamicElement } from '../model/Config.type';
 import { ProjectService } from '../service/project.service';
 import { DndDropEvent } from 'ngx-drag-drop';
-import { DndDropEffect, DragMovePosition } from '../model/EventTypes';
+import { DndDropEffect, DragMovePosition } from '../model/Event.types';
 import { UtilsService } from '../service/utils.service';
 import { PlaceholderService } from '../service/placeholder.service';
 

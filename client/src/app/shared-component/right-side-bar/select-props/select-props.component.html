@@ -1,0 +1,19 @@
+<div class="option-list">
+  <h3>Options</h3>
+  @for (option of element['data']; track $index) {
+  <div class="option-item">
+    <span class="option-label">{{ option.label }}</span>
+    <div class="option-actions">
+      <mat-icon class="delete-icon" (click)="onDeleteOption($index)"
+        >delete</mat-icon
+      >
+
+      <mat-icon class="edit-icon" (click)="onEditOption($index)">edit</mat-icon>
+    </div>
+  </div>
+  }
+  <button matButton="outlined" class="add-option" (click)="onAddOption()">
+    <mat-icon>add</mat-icon>
+    Add Option
+  </button>
+</div>

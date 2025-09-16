@@ -1,4 +1,4 @@
-import { IDynamicElement } from '../../model/Config';
+import { IDynamicElement } from '../../model/Config.type';
 
 export type SaveProjectReq = {
   id?: string;
