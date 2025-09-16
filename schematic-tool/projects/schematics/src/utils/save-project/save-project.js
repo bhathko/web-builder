@@ -3,13 +3,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CopyProject = CopyProject;
 const fs = require("fs");
 const path = require("path");
-function CopyProject(name) {
+function CopyProject(_id) {
     return (tree, context) => {
-        if (!name) {
-            context.logger.error('Project name is required for CopyProject.');
+        if (!_id) {
+            context.logger.error('Project _id is required for CopyProject.');
             return tree;
         }
-        let projectsDir = `../projects/${name}`;
+        let projectsDir = `../projects/${_id}`;
         const excludedDirs = ['node_modules', '.angular', '.vscode', 'projects'];
         // Ensure the projects directory exists
         while (fs.existsSync(projectsDir)) {
@@ -26,10 +26,10 @@ function CopyProject(name) {
             }
             if (fileEntry) {
                 const fullPath = path.join(projectsDir, filePath);
-                const dirName = path.dirname(fullPath);
+                const dir_id = path.dirname(fullPath);
                 // Ensure the directory structure exists
-                if (!fs.existsSync(dirName)) {
-                    fs.mkdirSync(dirName, { recursive: true });
+                if (!fs.existsSync(dir_id)) {
+                    fs.mkdirSync(dir_id, { recursive: true });
                 }
                 // Write the file content to the projects directory
                 fs.writeFileSync(fullPath, fileEntry.content);

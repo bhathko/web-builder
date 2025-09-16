@@ -17,6 +17,8 @@ export function htmlGenerator(node: ComponentNode): string {
     td: new GenericElement('td'),
     th: new GenericElement('th'),
     h2: new GenericElement('h2'),
+    card: new CardElementWithMatCard(),
+    grid_view: new GenericElement('div'),
   };
 
   const factory = factories[node.type.toLowerCase()];
@@ -86,5 +88,24 @@ class ButtonElementWithMatButton implements elementTagFactory {
     return `<button matButton id="${node.id}"${classAttr} ${propsAttr}>${
       node.content || ''
     }</button>`;
+  }
+}
+
+class CardElementWithMatCard implements elementTagFactory {
+  createElement(node: ComponentNode): string {
+    const classAttr = node?.class?.length
+      ? ` class="${node.class.join(' ')}"`
+      : '';
+    let propsAttr = '';
+    if (node.props) {
+      propsAttr = Object.entries(node.props)  
+
+      .map(([key, value]) => `${key}="${value}"`)
+        .join(' ');
+    }
+    // Always add mat-card directive
+    return `<mat-card id="${node.id}"${classAttr} ${propsAttr}>${
+      node.content || ''
+    }</mat-card>`;
   }
 }

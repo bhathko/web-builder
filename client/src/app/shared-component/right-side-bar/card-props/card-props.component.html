@@ -2,7 +2,7 @@
   <mat-label>Layout Align</mat-label>
   <mat-select
     (selectionChange)="onAlignChange($event.value)"
-    [value]="element.props['align']"
+    [value]="element.props['align'] ?? 'horizontal'"
   >
     @for (option of alignOptions; track option.value) {
     <mat-option [value]="option.value">{{ option.label }}</mat-option>

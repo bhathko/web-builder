@@ -18,6 +18,7 @@ function htmlGenerator(node) {
         td: new GenericElement('td'),
         th: new GenericElement('th'),
         h2: new GenericElement('h2'),
+        card: new CardElementWithMatCard(),
     };
     const factory = factories[node.type.toLowerCase()];
     if (!factory) {
@@ -79,6 +80,22 @@ class ButtonElementWithMatButton {
         }
         // Always add mat-button directive
         return `<button matButton id="${node.id}"${classAttr} ${propsAttr}>${node.content || ''}</button>`;
+    }
+}
+class CardElementWithMatCard {
+    createElement(node) {
+        var _a;
+        const classAttr = ((_a = node === null || node === void 0 ? void 0 : node.class) === null || _a === void 0 ? void 0 : _a.length)
+            ? ` class="${node.class.join(' ')}"`
+            : '';
+        let propsAttr = '';
+        if (node.props) {
+            propsAttr = Object.entries(node.props)
+                .map(([key, value]) => `${key}="${value}"`)
+                .join(' ');
+        }
+        // Always add mat-card directive
+        return `<mat-card id="${node.id}"${classAttr} ${propsAttr}>${node.content || ''}</mat-card>`;
     }
 }
 //# sourceMappingURL=html-generator.js.map
